@@ -19,6 +19,7 @@ app.get("/", (req, res) => {
     { id: 5, title: "5th joke", content: "this is 5th joke" },
   ];
   res.send(jokes);
+  console.log("recieved");
 });
 
 const PORT = process.env.PORT || 8000;
