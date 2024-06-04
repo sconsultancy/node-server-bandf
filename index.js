@@ -43,8 +43,8 @@ passport.deserializeUser((user, done) => {
 // initial google auth login
 
 const PORT = process.env.PORT || 8000;
-app.listen(PORT).then(() => {
-  console.log(`running on port`, PORT);
+app.listen(PORT, () => {
+  console.log("runnng on", PORT);
 });
 
 /*
