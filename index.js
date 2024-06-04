@@ -1,36 +1,55 @@
 const express = require("express");
-const cors = require("cors");
 const app = express();
+const passport = require("passport");
+const cookieSession = require("cookie-session");
+const cors = require("cors");
 const keys = require("./config/keys");
+require("./models/User");
+const mongoose = require("mongoose");
+const session = require("express-session");
 
-// cors setup
+// setup session
+app.use(
+  session({
+    secret: keys.sessionSecret,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
+// setup passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+mongoose.connect(keys.mongoURI).then(() => {
+  console.log("mongo Connected");
+});
+require("./services/passport");
+
+require("./routes/authRoutes")(app);
+
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
+passport.deserializeUser((user, done) => {
+  done(null, user);
+});
+
+// initial google auth login
+
+const PORT = process.env.PORT || 8000;
+app.listen(PORT).then(() => {
+  console.log(`running on port`, PORT);
+});
+
+/*
+=> 
+
 app.use(
   cors({
     origin: "*",
   })
 );
-
-// get a list of 5 jokes
-app.get("/api/jokes", (req, res) => {
-  const jokes = [
-    { id: 1, title: "A joke", content: "this is a joke" },
-    { id: 2, title: "Another joke", content: "this is another joke" },
-    { id: 3, title: "third joke", content: "this is 3rd joke" },
-    { id: 4, title: "4th joke", content: "this is 4th joke" },
-    { id: 5, title: "5th joke", content: "this is 5th joke" },
-  ];
-  res.send(jokes);
-  console.log("recieved");
-});
-
-const PORT = process.env.PORT || 8000;
-console.log(keys.googleClientID);
-app.listen(PORT, () => {
-  console.log("serve at 8000");
-});
-/*
-=> 
-
 
 
 
