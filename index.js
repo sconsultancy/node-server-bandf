@@ -10,7 +10,7 @@ app.use(
 );
 
 // get a list of 5 jokes
-app.get("/", (req, res) => {
+app.get("/api/jokes", (req, res) => {
   const jokes = [
     { id: 1, title: "A joke", content: "this is a joke" },
     { id: 2, title: "Another joke", content: "this is another joke" },
@@ -23,7 +23,14 @@ app.get("/", (req, res) => {
 });
 
 const PORT = process.env.PORT || 8000;
-
+console.log("here is clg");
 app.listen(PORT, () => {
   console.log("serve at 8000");
 });
+/*
+=> Change Get request to /api/jokes and test
+
+
+
+
+*/
