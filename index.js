@@ -1,7 +1,6 @@
 const express = require("express");
 const app = express();
 const passport = require("passport");
-const cookieSession = require("cookie-session");
 const cors = require("cors");
 const keys = require("./config/keys");
 require("./models/User");
@@ -14,6 +13,12 @@ app.use(
     secret: keys.sessionSecret,
     resave: false,
     saveUninitialized: true,
+  })
+);
+// Setup cors
+app.use(
+  cors({
+    origin: "*",
   })
 );
 
@@ -45,11 +50,7 @@ app.listen(PORT).then(() => {
 /*
 => 
 
-app.use(
-  cors({
-    origin: "*",
-  })
-);
+
 
 
 
