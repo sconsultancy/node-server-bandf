@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const keys = require("./config/keys");
 
 // cors setup
 app.use(
@@ -23,12 +24,12 @@ app.get("/api/jokes", (req, res) => {
 });
 
 const PORT = process.env.PORT || 8000;
-console.log("here is clg");
+console.log(keys.googleClientID);
 app.listen(PORT, () => {
   console.log("serve at 8000");
 });
 /*
-=> Change Get request to /api/jokes and test
+=> 
 
 
 
